@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd C:/Users/hi/projetos/dashboard360 && touch src/components/ui/.gitkeep src/components/charts/.gitkeep src/components/agency/.gitkeep src/components/workspace/.gitkeep src/components/shared/.gitkeep src/hooks/.gitkeep src/types/.gitkeep)",
+      "Bash(cd C:/Users/hi/projetos/dashboard360 && npm install jspdf jspdf-autotable xlsx mapbox-gl 2>&1)",
+      "Bash(cd C:/Users/hi/projetos/dashboard360 && mkdir -p src/app/\\\\\\(workspace\\\\\\)/w/\\\\[workspaceId\\\\]/territory/qr-codes src/app/\\\\\\(workspace\\\\\\)/w/\\\\[workspaceId\\\\]/mobilization/leads src/app/\\\\\\(workspace\\\\\\)/w/\\\\[workspaceId\\\\]/mobilization/whatsapp src/app/\\\\\\(workspace\\\\\\)/w/\\\\[workspaceId\\\\]/finance/simulator src/app/\\\\\\(workspace\\\\\\)/w/\\\\[workspaceId\\\\]/reports)",
+      "Bash(cd C:/Users/hi/projetos/dashboard360 && mkdir -p src/app/\\\\\\(workspace\\\\\\)/w/\\\\[workspaceId\\\\]/listening/terms src/app/\\\\\\(workspace\\\\\\)/w/\\\\[workspaceId\\\\]/competitors src/app/\\\\\\(workspace\\\\\\)/w/\\\\[workspaceId\\\\]/risk/alerts)",
+      "Bash(ls -la C:/Users/hi/projetos/dashboard360/src/app/\\\\\\(workspace\\\\\\)/w/\\\\[workspaceId\\\\]/risk/page.tsx C:/Users/hi/projetos/dashboard360/src/app/\\\\\\(workspace\\\\\\)/w/\\\\[workspaceId\\\\]/risk/alerts/page.tsx C:/Users/hi/projetos/dashboard360/src/components/workspace/ReputationThermometer.tsx 2>&1)",
+      "Bash(cd C:/Users/hi/projetos/dashboard360 && npx next build 2>&1)",
+      "Bash(cd C:/Users/hi/projetos/dashboard360 && mkdir -p src/app/\\\\\\(agency\\\\\\)/agency/workspaces/new src/app/\\\\\\(agency\\\\\\)/agency/team src/app/\\\\\\(agency\\\\\\)/agency/settings src/components/agency src/stores)",
+      "Bash(ls -la C:/Users/hi/projetos/dashboard360/src/app/\\\\\\(agency\\\\\\)/agency/workspaces/page.tsx C:/Users/hi/projetos/dashboard360/src/app/\\\\\\(agency\\\\\\)/agency/workspaces/new/page.tsx C:/Users/hi/projetos/dashboard360/src/stores/wizardStore.ts 2>&1)",
+      "Bash(cd C:/Users/hi/projetos/dashboard360 && node -e \"require\\('fs'\\).readFileSync\\('src/app/\\(agency\\)/agency/settings/page.tsx','utf8'\\)\" 2>&1 | head -5)",
+      "Bash(cd C:/Users/hi/projetos/dashboard360 && rm -rf .next && npx next build 2>&1)",
+      "Bash(taskkill //F //IM node.exe 2>/dev/null; echo \"done\")"
+    ]
+  }
+}
