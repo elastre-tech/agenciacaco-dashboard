@@ -5,6 +5,7 @@ import { Menu } from 'lucide-react'
 import AgencySidebar from '@/components/agency/AgencySidebar'
 import AgencyTopbar from '@/components/agency/AgencyTopbar'
 import AgencyMobileSidebar from '@/components/agency/AgencyMobileSidebar'
+import ErrorBoundary from '@/components/ui/ErrorBoundary'
 import { cn } from '@/lib/utils/format'
 
 export default function AgencyLayout({ children }: { children: React.ReactNode }) {
@@ -41,7 +42,9 @@ export default function AgencyLayout({ children }: { children: React.ReactNode }
         )}
       >
         <div className="p-4 md:p-6 lg:p-8">
-          {children}
+          <ErrorBoundary>
+            {children}
+          </ErrorBoundary>
         </div>
       </main>
     </div>

@@ -1,0 +1,229 @@
+{
+  "election_year": 2020,
+  "election_type": "municipal",
+  "cities": {
+    "São Paulo-SP": {
+      "candidates": [
+        { "name": "Bruno Covas", "party": "PSDB", "votes": 3267864, "percentage": 59.38, "elected": true },
+        { "name": "Guilherme Boulos", "party": "PSOL", "votes": 2234235, "percentage": 40.62, "elected": false },
+        { "name": "Márcio França", "party": "PSB", "votes": 726172, "percentage": 9.69, "elected": false },
+        { "name": "Celso Russomanno", "party": "Republicanos", "votes": 1265297, "percentage": 16.87, "elected": false },
+        { "name": "Arthur do Val", "party": "Patriota", "votes": 494640, "percentage": 6.60, "elected": false }
+      ],
+      "total_votes": 7502068,
+      "zones": [
+        { "zone": "001", "section": "0001-0250", "candidate_name": "Bruno Covas", "party": "PSDB", "votes": 85200, "percentage": 62.10 },
+        { "zone": "001", "section": "0001-0250", "candidate_name": "Guilherme Boulos", "party": "PSOL", "votes": 52000, "percentage": 37.90 },
+        { "zone": "002", "section": "0001-0230", "candidate_name": "Bruno Covas", "party": "PSDB", "votes": 78500, "percentage": 58.20 },
+        { "zone": "002", "section": "0001-0230", "candidate_name": "Guilherme Boulos", "party": "PSOL", "votes": 56300, "percentage": 41.80 },
+        { "zone": "246", "section": "0001-0200", "candidate_name": "Bruno Covas", "party": "PSDB", "votes": 71400, "percentage": 55.30 },
+        { "zone": "246", "section": "0001-0200", "candidate_name": "Guilherme Boulos", "party": "PSOL", "votes": 57700, "percentage": 44.70 },
+        { "zone": "372", "section": "0001-0180", "candidate_name": "Bruno Covas", "party": "PSDB", "votes": 92300, "percentage": 63.80 },
+        { "zone": "372", "section": "0001-0180", "candidate_name": "Guilherme Boulos", "party": "PSOL", "votes": 52400, "percentage": 36.20 }
+      ]
+    },
+    "Rio de Janeiro-RJ": {
+      "candidates": [
+        { "name": "Eduardo Paes", "party": "DEM", "votes": 1630326, "percentage": 64.07, "elected": true },
+        { "name": "Marcelo Crivella", "party": "Republicanos", "votes": 914227, "percentage": 35.93, "elected": false },
+        { "name": "Martha Rocha", "party": "PDT", "votes": 381048, "percentage": 11.30, "elected": false },
+        { "name": "Benedita da Silva", "party": "PT", "votes": 286702, "percentage": 8.50, "elected": false }
+      ],
+      "total_votes": 3374689,
+      "zones": [
+        { "zone": "001", "section": "0001-0200", "candidate_name": "Eduardo Paes", "party": "DEM", "votes": 68200, "percentage": 66.40 },
+        { "zone": "001", "section": "0001-0200", "candidate_name": "Marcelo Crivella", "party": "Republicanos", "votes": 34500, "percentage": 33.60 },
+        { "zone": "039", "section": "0001-0180", "candidate_name": "Eduardo Paes", "party": "DEM", "votes": 54300, "percentage": 61.20 },
+        { "zone": "039", "section": "0001-0180", "candidate_name": "Marcelo Crivella", "party": "Republicanos", "votes": 34400, "percentage": 38.80 },
+        { "zone": "076", "section": "0001-0160", "candidate_name": "Eduardo Paes", "party": "DEM", "votes": 61800, "percentage": 63.50 },
+        { "zone": "076", "section": "0001-0160", "candidate_name": "Marcelo Crivella", "party": "Republicanos", "votes": 35500, "percentage": 36.50 },
+        { "zone": "155", "section": "0001-0140", "candidate_name": "Eduardo Paes", "party": "DEM", "votes": 49700, "percentage": 67.80 },
+        { "zone": "155", "section": "0001-0140", "candidate_name": "Marcelo Crivella", "party": "Republicanos", "votes": 23600, "percentage": 32.20 }
+      ]
+    },
+    "Belo Horizonte-MG": {
+      "candidates": [
+        { "name": "Alexandre Kalil", "party": "PSD", "votes": 634124, "percentage": 63.36, "elected": true },
+        { "name": "Bruno Engler", "party": "PRTB", "votes": 366530, "percentage": 36.64, "elected": false },
+        { "name": "Rodrigo Paiva", "party": "Novo", "votes": 54893, "percentage": 4.15, "elected": false },
+        { "name": "Áurea Carolina", "party": "PSOL", "votes": 78302, "percentage": 5.92, "elected": false }
+      ],
+      "total_votes": 1322367,
+      "zones": [
+        { "zone": "021", "section": "0001-0150", "candidate_name": "Alexandre Kalil", "party": "PSD", "votes": 42800, "percentage": 65.20 },
+        { "zone": "021", "section": "0001-0150", "candidate_name": "Bruno Engler", "party": "PRTB", "votes": 22850, "percentage": 34.80 },
+        { "zone": "058", "section": "0001-0130", "candidate_name": "Alexandre Kalil", "party": "PSD", "votes": 38600, "percentage": 61.40 },
+        { "zone": "058", "section": "0001-0130", "candidate_name": "Bruno Engler", "party": "PRTB", "votes": 24250, "percentage": 38.60 },
+        { "zone": "116", "section": "0001-0120", "candidate_name": "Alexandre Kalil", "party": "PSD", "votes": 35400, "percentage": 64.70 },
+        { "zone": "116", "section": "0001-0120", "candidate_name": "Bruno Engler", "party": "PRTB", "votes": 19300, "percentage": 35.30 },
+        { "zone": "213", "section": "0001-0110", "candidate_name": "Alexandre Kalil", "party": "PSD", "votes": 31200, "percentage": 62.80 },
+        { "zone": "213", "section": "0001-0110", "candidate_name": "Bruno Engler", "party": "PRTB", "votes": 18500, "percentage": 37.20 }
+      ]
+    },
+    "Curitiba-PR": {
+      "candidates": [
+        { "name": "Rafael Greca", "party": "DEM", "votes": 473392, "percentage": 59.44, "elected": true },
+        { "name": "Goura", "party": "PDT", "votes": 122812, "percentage": 15.42, "elected": false },
+        { "name": "Fernando Francischini", "party": "PSL", "votes": 87340, "percentage": 10.97, "elected": false },
+        { "name": "Marisa Lobo", "party": "Avante", "votes": 26184, "percentage": 3.29, "elected": false }
+      ],
+      "total_votes": 796170,
+      "zones": [
+        { "zone": "001", "section": "0001-0140", "candidate_name": "Rafael Greca", "party": "DEM", "votes": 35600, "percentage": 61.20 },
+        { "zone": "001", "section": "0001-0140", "candidate_name": "Goura", "party": "PDT", "votes": 9200, "percentage": 15.80 },
+        { "zone": "045", "section": "0001-0120", "candidate_name": "Rafael Greca", "party": "DEM", "votes": 29800, "percentage": 57.60 },
+        { "zone": "045", "section": "0001-0120", "candidate_name": "Goura", "party": "PDT", "votes": 8400, "percentage": 16.20 },
+        { "zone": "089", "section": "0001-0130", "candidate_name": "Rafael Greca", "party": "DEM", "votes": 32400, "percentage": 60.50 },
+        { "zone": "089", "section": "0001-0130", "candidate_name": "Goura", "party": "PDT", "votes": 7800, "percentage": 14.60 },
+        { "zone": "145", "section": "0001-0100", "candidate_name": "Rafael Greca", "party": "DEM", "votes": 27500, "percentage": 58.90 },
+        { "zone": "145", "section": "0001-0100", "candidate_name": "Goura", "party": "PDT", "votes": 7200, "percentage": 15.40 }
+      ]
+    },
+    "Florianópolis-SC": {
+      "candidates": [
+        { "name": "Topázio Silveira Neto", "party": "PSD", "votes": 96242, "percentage": 34.33, "elected": true },
+        { "name": "Angela Amin", "party": "PP", "votes": 57812, "percentage": 20.62, "elected": false },
+        { "name": "Pedrão da Auto Escola", "party": "MDB", "votes": 31456, "percentage": 11.22, "elected": false },
+        { "name": "Prof. Elson Manoel Pereira", "party": "PSOL", "votes": 41235, "percentage": 14.71, "elected": false },
+        { "name": "Décio Gomes Góes", "party": "PT", "votes": 17893, "percentage": 6.38, "elected": false }
+      ],
+      "total_votes": 280370,
+      "zones": [
+        { "zone": "012", "section": "0001-0090", "candidate_name": "Topázio Silveira Neto", "party": "PSD", "votes": 8200, "percentage": 35.60 },
+        { "zone": "012", "section": "0001-0090", "candidate_name": "Angela Amin", "party": "PP", "votes": 4700, "percentage": 20.40 },
+        { "zone": "034", "section": "0001-0080", "candidate_name": "Topázio Silveira Neto", "party": "PSD", "votes": 7400, "percentage": 33.80 },
+        { "zone": "034", "section": "0001-0080", "candidate_name": "Prof. Elson Manoel Pereira", "party": "PSOL", "votes": 3800, "percentage": 17.40 },
+        { "zone": "056", "section": "0001-0070", "candidate_name": "Topázio Silveira Neto", "party": "PSD", "votes": 6800, "percentage": 34.90 },
+        { "zone": "056", "section": "0001-0070", "candidate_name": "Pedrão da Auto Escola", "party": "MDB", "votes": 2300, "percentage": 11.80 },
+        { "zone": "078", "section": "0001-0060", "candidate_name": "Topázio Silveira Neto", "party": "PSD", "votes": 5900, "percentage": 33.10 },
+        { "zone": "078", "section": "0001-0060", "candidate_name": "Angela Amin", "party": "PP", "votes": 3600, "percentage": 20.20 }
+      ]
+    },
+    "Porto Alegre-RS": {
+      "candidates": [
+        { "name": "Sebastião Melo", "party": "MDB", "votes": 364313, "percentage": 54.63, "elected": true },
+        { "name": "Manuela d'Ávila", "party": "PCdoB", "votes": 302679, "percentage": 45.37, "elected": false },
+        { "name": "Nelson Marchezan Jr", "party": "PSDB", "votes": 161403, "percentage": 18.68, "elected": false }
+      ],
+      "total_votes": 864440,
+      "zones": [
+        { "zone": "001", "section": "0001-0130", "candidate_name": "Sebastião Melo", "party": "MDB", "votes": 28400, "percentage": 56.20 },
+        { "zone": "001", "section": "0001-0130", "candidate_name": "Manuela d'Ávila", "party": "PCdoB", "votes": 22100, "percentage": 43.80 },
+        { "zone": "032", "section": "0001-0110", "candidate_name": "Sebastião Melo", "party": "MDB", "votes": 24600, "percentage": 53.40 },
+        { "zone": "032", "section": "0001-0110", "candidate_name": "Manuela d'Ávila", "party": "PCdoB", "votes": 21500, "percentage": 46.60 },
+        { "zone": "067", "section": "0001-0120", "candidate_name": "Sebastião Melo", "party": "MDB", "votes": 26800, "percentage": 55.80 },
+        { "zone": "067", "section": "0001-0120", "candidate_name": "Manuela d'Ávila", "party": "PCdoB", "votes": 21200, "percentage": 44.20 },
+        { "zone": "098", "section": "0001-0100", "candidate_name": "Sebastião Melo", "party": "MDB", "votes": 22500, "percentage": 54.10 },
+        { "zone": "098", "section": "0001-0100", "candidate_name": "Manuela d'Ávila", "party": "PCdoB", "votes": 19100, "percentage": 45.90 }
+      ]
+    },
+    "Salvador-BA": {
+      "candidates": [
+        { "name": "Bruno Reis", "party": "DEM", "votes": 792003, "percentage": 64.22, "elected": true },
+        { "name": "Major Denice", "party": "PT", "votes": 441291, "percentage": 35.78, "elected": false },
+        { "name": "Pastor Sargento Isidório", "party": "Avante", "votes": 201432, "percentage": 12.94, "elected": false }
+      ],
+      "total_votes": 1556280,
+      "zones": [
+        { "zone": "001", "section": "0001-0160", "candidate_name": "Bruno Reis", "party": "DEM", "votes": 45200, "percentage": 65.80 },
+        { "zone": "001", "section": "0001-0160", "candidate_name": "Major Denice", "party": "PT", "votes": 23500, "percentage": 34.20 },
+        { "zone": "042", "section": "0001-0140", "candidate_name": "Bruno Reis", "party": "DEM", "votes": 38700, "percentage": 62.10 },
+        { "zone": "042", "section": "0001-0140", "candidate_name": "Major Denice", "party": "PT", "votes": 23600, "percentage": 37.90 },
+        { "zone": "085", "section": "0001-0150", "candidate_name": "Bruno Reis", "party": "DEM", "votes": 42100, "percentage": 64.50 },
+        { "zone": "085", "section": "0001-0150", "candidate_name": "Major Denice", "party": "PT", "votes": 23200, "percentage": 35.50 },
+        { "zone": "126", "section": "0001-0120", "candidate_name": "Bruno Reis", "party": "DEM", "votes": 35800, "percentage": 66.30 },
+        { "zone": "126", "section": "0001-0120", "candidate_name": "Major Denice", "party": "PT", "votes": 18200, "percentage": 33.70 }
+      ]
+    },
+    "Recife-PE": {
+      "candidates": [
+        { "name": "João Campos", "party": "PSB", "votes": 561481, "percentage": 56.27, "elected": true },
+        { "name": "Marília Arraes", "party": "PT", "votes": 436388, "percentage": 43.73, "elected": false },
+        { "name": "Delegada Patrícia", "party": "Podemos", "votes": 152367, "percentage": 12.74, "elected": false },
+        { "name": "Mendonça Filho", "party": "DEM", "votes": 115204, "percentage": 9.63, "elected": false }
+      ],
+      "total_votes": 1196207,
+      "zones": [
+        { "zone": "001", "section": "0001-0130", "candidate_name": "João Campos", "party": "PSB", "votes": 32400, "percentage": 57.80 },
+        { "zone": "001", "section": "0001-0130", "candidate_name": "Marília Arraes", "party": "PT", "votes": 23600, "percentage": 42.20 },
+        { "zone": "028", "section": "0001-0110", "candidate_name": "João Campos", "party": "PSB", "votes": 27800, "percentage": 55.60 },
+        { "zone": "028", "section": "0001-0110", "candidate_name": "Marília Arraes", "party": "PT", "votes": 22200, "percentage": 44.40 },
+        { "zone": "054", "section": "0001-0120", "candidate_name": "João Campos", "party": "PSB", "votes": 30100, "percentage": 56.90 },
+        { "zone": "054", "section": "0001-0120", "candidate_name": "Marília Arraes", "party": "PT", "votes": 22800, "percentage": 43.10 },
+        { "zone": "079", "section": "0001-0100", "candidate_name": "João Campos", "party": "PSB", "votes": 25600, "percentage": 54.80 },
+        { "zone": "079", "section": "0001-0100", "candidate_name": "Marília Arraes", "party": "PT", "votes": 21100, "percentage": 45.20 }
+      ]
+    },
+    "Fortaleza-CE": {
+      "candidates": [
+        { "name": "José Sarto", "party": "PDT", "votes": 668725, "percentage": 51.69, "elected": true },
+        { "name": "Capitão Wagner", "party": "PROS", "votes": 624821, "percentage": 48.31, "elected": false },
+        { "name": "Luizianne Lins", "party": "PT", "votes": 199750, "percentage": 12.72, "elected": false }
+      ],
+      "total_votes": 1293546,
+      "zones": [
+        { "zone": "001", "section": "0001-0140", "candidate_name": "José Sarto", "party": "PDT", "votes": 36200, "percentage": 52.40 },
+        { "zone": "001", "section": "0001-0140", "candidate_name": "Capitão Wagner", "party": "PROS", "votes": 32900, "percentage": 47.60 },
+        { "zone": "038", "section": "0001-0120", "candidate_name": "José Sarto", "party": "PDT", "votes": 30800, "percentage": 50.80 },
+        { "zone": "038", "section": "0001-0120", "candidate_name": "Capitão Wagner", "party": "PROS", "votes": 29800, "percentage": 49.20 },
+        { "zone": "072", "section": "0001-0130", "candidate_name": "José Sarto", "party": "PDT", "votes": 34100, "percentage": 53.10 },
+        { "zone": "072", "section": "0001-0130", "candidate_name": "Capitão Wagner", "party": "PROS", "votes": 30100, "percentage": 46.90 },
+        { "zone": "114", "section": "0001-0110", "candidate_name": "José Sarto", "party": "PDT", "votes": 28500, "percentage": 51.20 },
+        { "zone": "114", "section": "0001-0110", "candidate_name": "Capitão Wagner", "party": "PROS", "votes": 27200, "percentage": 48.80 }
+      ]
+    },
+    "Goiânia-GO": {
+      "candidates": [
+        { "name": "Maguito Vilela", "party": "MDB", "votes": 324878, "percentage": 52.67, "elected": true },
+        { "name": "Vanderlan Cardoso", "party": "PSD", "votes": 292073, "percentage": 47.33, "elected": false },
+        { "name": "Adriana Accorsi", "party": "PT", "votes": 72641, "percentage": 8.76, "elected": false }
+      ],
+      "total_votes": 829241,
+      "zones": [
+        { "zone": "001", "section": "0001-0120", "candidate_name": "Maguito Vilela", "party": "MDB", "votes": 22800, "percentage": 53.40 },
+        { "zone": "001", "section": "0001-0120", "candidate_name": "Vanderlan Cardoso", "party": "PSD", "votes": 19900, "percentage": 46.60 },
+        { "zone": "036", "section": "0001-0100", "candidate_name": "Maguito Vilela", "party": "MDB", "votes": 19200, "percentage": 51.80 },
+        { "zone": "036", "section": "0001-0100", "candidate_name": "Vanderlan Cardoso", "party": "PSD", "votes": 17900, "percentage": 48.20 },
+        { "zone": "068", "section": "0001-0110", "candidate_name": "Maguito Vilela", "party": "MDB", "votes": 21400, "percentage": 54.20 },
+        { "zone": "068", "section": "0001-0110", "candidate_name": "Vanderlan Cardoso", "party": "PSD", "votes": 18100, "percentage": 45.80 },
+        { "zone": "095", "section": "0001-0090", "candidate_name": "Maguito Vilela", "party": "MDB", "votes": 17600, "percentage": 52.10 },
+        { "zone": "095", "section": "0001-0090", "candidate_name": "Vanderlan Cardoso", "party": "PSD", "votes": 16200, "percentage": 47.90 }
+      ]
+    },
+    "Manaus-AM": {
+      "candidates": [
+        { "name": "David Almeida", "party": "Avante", "votes": 378302, "percentage": 51.27, "elected": true },
+        { "name": "Amazonino Mendes", "party": "Podemos", "votes": 359468, "percentage": 48.73, "elected": false },
+        { "name": "Zé Ricardo", "party": "PT", "votes": 125873, "percentage": 13.41, "elected": false }
+      ],
+      "total_votes": 937932,
+      "zones": [
+        { "zone": "001", "section": "0001-0140", "candidate_name": "David Almeida", "party": "Avante", "votes": 26800, "percentage": 52.30 },
+        { "zone": "001", "section": "0001-0140", "candidate_name": "Amazonino Mendes", "party": "Podemos", "votes": 24400, "percentage": 47.70 },
+        { "zone": "029", "section": "0001-0120", "candidate_name": "David Almeida", "party": "Avante", "votes": 23100, "percentage": 50.80 },
+        { "zone": "029", "section": "0001-0120", "candidate_name": "Amazonino Mendes", "party": "Podemos", "votes": 22400, "percentage": 49.20 },
+        { "zone": "058", "section": "0001-0130", "candidate_name": "David Almeida", "party": "Avante", "votes": 25400, "percentage": 51.60 },
+        { "zone": "058", "section": "0001-0130", "candidate_name": "Amazonino Mendes", "party": "Podemos", "votes": 23800, "percentage": 48.40 },
+        { "zone": "087", "section": "0001-0110", "candidate_name": "David Almeida", "party": "Avante", "votes": 21700, "percentage": 50.40 },
+        { "zone": "087", "section": "0001-0110", "candidate_name": "Amazonino Mendes", "party": "Podemos", "votes": 21300, "percentage": 49.60 }
+      ]
+    },
+    "Natal-RN": {
+      "candidates": [
+        { "name": "Álvaro Dias", "party": "PSDB", "votes": 231471, "percentage": 56.37, "elected": true },
+        { "name": "Delegado Paulo Batista", "party": "SD", "votes": 34218, "percentage": 8.33, "elected": false }
+      ],
+      "total_votes": 410680,
+      "zones": [
+        { "zone": "001", "section": "0001-0100", "candidate_name": "Álvaro Dias", "party": "PSDB", "votes": 18400, "percentage": 57.80 },
+        { "zone": "001", "section": "0001-0100", "candidate_name": "Delegado Paulo Batista", "party": "SD", "votes": 2800, "percentage": 8.80 },
+        { "zone": "023", "section": "0001-0090", "candidate_name": "Álvaro Dias", "party": "PSDB", "votes": 15600, "percentage": 55.40 },
+        { "zone": "023", "section": "0001-0090", "candidate_name": "Delegado Paulo Batista", "party": "SD", "votes": 2400, "percentage": 8.50 },
+        { "zone": "045", "section": "0001-0080", "candidate_name": "Álvaro Dias", "party": "PSDB", "votes": 14200, "percentage": 56.90 },
+        { "zone": "045", "section": "0001-0080", "candidate_name": "Delegado Paulo Batista", "party": "SD", "votes": 2100, "percentage": 8.40 },
+        { "zone": "067", "section": "0001-0070", "candidate_name": "Álvaro Dias", "party": "PSDB", "votes": 12800, "percentage": 55.60 },
+        { "zone": "067", "section": "0001-0070", "candidate_name": "Delegado Paulo Batista", "party": "SD", "votes": 1900, "percentage": 8.20 }
+      ]
+    }
+  }
+}

@@ -34,3 +34,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# junk / personal files
+desktop.ini
+*.lnk
+aaaaaaa/
+julia-urbem/
+81d978ba-*.txt
+Trip Sampa*
+Termo_Acordo*
+handoff-dashboard360.html

@@ -8,7 +8,6 @@ import {
   Eye,
   MessageSquareReply,
   UserMinus,
-  Loader2,
 } from 'lucide-react'
 import {
   BarChart,
@@ -21,6 +20,7 @@ import {
   Legend,
 } from 'recharts'
 import { createClient } from '@/lib/supabase/client'
+import { ModulePageSkeleton } from '@/components/ui/Skeleton'
 import KPICard from '@/components/ui/KPICard'
 import ChartCard from '@/components/ui/ChartCard'
 import WhatsAppLineChart from '@/components/charts/WhatsAppLineChart'
@@ -118,11 +118,7 @@ export default function WhatsAppMetricsPage() {
   }, [workspaceId])
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
-    )
+    return <ModulePageSkeleton kpis={4} charts={2} />
   }
 
   const kpis = computeWAKPIs(metrics)

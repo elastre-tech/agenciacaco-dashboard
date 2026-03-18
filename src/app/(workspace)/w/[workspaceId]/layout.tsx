@@ -9,6 +9,7 @@ import MobileSidebar from '@/components/workspace/MobileSidebar'
 import { useWorkspace } from '@/hooks/useWorkspace'
 import { useUserRole } from '@/hooks/useUserRole'
 import { usePermissions } from '@/hooks/usePermissions'
+import ErrorBoundary from '@/components/ui/ErrorBoundary'
 import { cn } from '@/lib/utils/format'
 
 export default function WorkspaceLayout({ children }: { children: React.ReactNode }) {
@@ -73,7 +74,9 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
         )}
       >
         <div className="p-4 md:p-6 lg:p-8">
-          {children}
+          <ErrorBoundary>
+            {children}
+          </ErrorBoundary>
         </div>
       </main>
     </div>

@@ -3,8 +3,9 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Loader2, RotateCcw, TrendingDown, TrendingUp } from 'lucide-react'
+import { ArrowLeft, RotateCcw, TrendingDown, TrendingUp } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { ModulePageSkeleton } from '@/components/ui/Skeleton'
 import { cn } from '@/lib/utils/format'
 import type { ChannelBudget } from '@/types/database'
 
@@ -101,11 +102,7 @@ export default function SimulatorPage() {
   const impacts = computeImpacts(originalAllocations, allocations)
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
-    )
+    return <ModulePageSkeleton kpis={0} charts={1} />
   }
 
   return (

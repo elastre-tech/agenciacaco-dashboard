@@ -14,6 +14,7 @@ import {
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
 import ChartCard from '@/components/ui/ChartCard'
+import { SkeletonChart } from '@/components/ui/Skeleton'
 import LivePreview from './LivePreview'
 
 interface AgencyData {
@@ -178,8 +179,10 @@ export default function AgencySettingsPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
+      <div className="space-y-6">
+        <SkeletonChart />
+        <SkeletonChart />
+        <SkeletonChart />
       </div>
     )
   }

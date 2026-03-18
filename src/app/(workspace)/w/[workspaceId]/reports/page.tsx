@@ -1,11 +1,13 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { FileText, FileSpreadsheet, Download, Loader2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
 import ChartCard from '@/components/ui/ChartCard'
+import { TablePageSkeleton } from '@/components/ui/Skeleton'
+import EmptyState from '@/components/ui/EmptyState'
 import { generatePDF } from '@/lib/utils/generatePDF'
 import { generateExcel } from '@/lib/utils/generateExcel'
 import type { Report, ReportFormat, ReportStatus } from '@/types/database'
@@ -53,8 +55,10 @@ export default function ReportsPage() {
   const [startDate, setStartDate] = useState(thirtyDaysAgoISO)
   const [endDate, setEndDate] = useState(todayISO)
   const [selectedModules, setSelectedModules] = useState<string[]>(['painel-geral'])
-  const [format, setFormat] = useState<ReportFormat>('pdf')
+  const [reportFormat, setReportFormat] = useState<ReportFormat>('pdf')
   const [generating, setGenerating] = useState(false)
+
+  const blobCache = useRef<Map<string, Blob>>(new Map())
 
   const [reports, setReports] = useState<Report[]>([])
   const [loadingHistory, setLoadingHistory] = useState(true)
@@ -87,6 +91,8 @@ export default function ReportsPage() {
     setGenerating(true)
     const supabase = createClient()
 
+    let reportId: string | null = null
+
     try {
       const { data: userData } = await supabase.auth.getUser()
       const userId = userData?.user?.id ?? '00000000-0000-0000-0000-000000000000'
@@ -96,7 +102,7 @@ export default function ReportsPage() {
         .insert({
           workspace_id: workspaceId,
           title: title.trim(),
-          format,
+          format: reportFormat,
           status: 'generating' as ReportStatus,
           file_url: null,
           filters: { modules: selectedModules, start: startDate, end: endDate },
@@ -107,20 +113,29 @@ export default function ReportsPage() {
 
       if (insertError || !inserted) throw new Error(insertError?.message ?? 'Insert failed')
 
+      reportId = inserted.id
       await fetchReports()
 
       const dateRange = { start: startDate, end: endDate }
-      const blob = format === 'pdf'
+      const blob = reportFormat === 'pdf'
         ? await generatePDF(title.trim(), dateRange, selectedModules, workspaceId)
         : await generateExcel(title.trim(), dateRange, selectedModules, workspaceId)
 
-      const fileUrl = URL.createObjectURL(blob)
+      blobCache.current.set(inserted.id, blob)
+
+      const url = URL.createObjectURL(blob)
+      const anchor = document.createElement('a')
+      anchor.href = url
+      anchor.download = `${title.trim()}.${reportFormat === 'pdf' ? 'pdf' : 'xlsx'}`
+      document.body.appendChild(anchor)
+      anchor.click()
+      document.body.removeChild(anchor)
+      URL.revokeObjectURL(url)
 
       await supabase
         .from('reports')
         .update({
           status: 'completed' as ReportStatus,
-          file_url: fileUrl,
           completed_at: new Date().toISOString(),
         })
         .eq('id', inserted.id)
@@ -128,21 +143,44 @@ export default function ReportsPage() {
       await fetchReports()
       setTitle('')
     } catch (err) {
-      console.error(err)
+      console.error('Report generation failed:', err)
+      if (reportId) {
+        const sb = createClient()
+        await sb
+          .from('reports')
+          .update({ status: 'failed' as ReportStatus })
+          .eq('id', reportId)
+        await fetchReports()
+      }
     } finally {
       setGenerating(false)
     }
   }
 
   function handleDownload(report: Report) {
-    if (report.status !== 'completed' || !report.file_url) return
-    const ext = report.format === 'pdf' ? '.pdf' : '.xlsx'
-    const anchor = document.createElement('a')
-    anchor.href = report.file_url
-    anchor.download = `${report.title}${ext}`
-    document.body.appendChild(anchor)
-    anchor.click()
-    document.body.removeChild(anchor)
+    if (report.status !== 'completed') return
+
+    const cached = blobCache.current.get(report.id)
+    if (cached) {
+      const url = URL.createObjectURL(cached)
+      const anchor = document.createElement('a')
+      anchor.href = url
+      anchor.download = `${report.title}.${report.format === 'pdf' ? 'pdf' : 'xlsx'}`
+      document.body.appendChild(anchor)
+      anchor.click()
+      document.body.removeChild(anchor)
+      URL.revokeObjectURL(url)
+      return
+    }
+
+    if (report.file_url) {
+      const anchor = document.createElement('a')
+      anchor.href = report.file_url
+      anchor.download = `${report.title}.${report.format === 'pdf' ? 'pdf' : 'xlsx'}`
+      document.body.appendChild(anchor)
+      anchor.click()
+      document.body.removeChild(anchor)
+    }
   }
 
   return (
@@ -242,10 +280,10 @@ export default function ReportsPage() {
             <div className="flex gap-2">
               <button
                 type="button"
-                onClick={() => setFormat('pdf')}
+                onClick={() => setReportFormat('pdf')}
                 className={cn(
                   'flex items-center gap-2 rounded-lg px-5 py-2.5 font-body text-sm font-medium transition-colors',
-                  format === 'pdf'
+                  reportFormat === 'pdf'
                     ? 'bg-primary text-dark-700'
                     : 'border border-border bg-surface text-dark-300 hover:bg-dark-50',
                 )}
@@ -255,10 +293,10 @@ export default function ReportsPage() {
               </button>
               <button
                 type="button"
-                onClick={() => setFormat('excel')}
+                onClick={() => setReportFormat('excel')}
                 className={cn(
                   'flex items-center gap-2 rounded-lg px-5 py-2.5 font-body text-sm font-medium transition-colors',
-                  format === 'excel'
+                  reportFormat === 'excel'
                     ? 'bg-primary text-dark-700'
                     : 'border border-border bg-surface text-dark-300 hover:bg-dark-50',
                 )}
@@ -287,13 +325,13 @@ export default function ReportsPage() {
 
       <ChartCard title="Histórico de Relatórios" subtitle={`${reports.length} relatórios`}>
         {loadingHistory ? (
-          <div className="flex items-center justify-center py-10">
-            <Loader2 size={20} className="animate-spin text-dark-300" />
-          </div>
+          <TablePageSkeleton cols={5} />
         ) : !reports.length ? (
-          <p className="font-body text-sm text-dark-300 text-center py-10">
-            Nenhum relatório gerado ainda.
-          </p>
+          <EmptyState
+            icon={FileText}
+            title="Nenhum relatório gerado ainda"
+            description="Gere relatórios para exportar dados da campanha em PDF ou Excel."
+          />
         ) : (
           <div className="overflow-x-auto -mx-5">
             <table className="w-full min-w-[600px]">

@@ -162,6 +162,7 @@ export type PermissionModule =
   | 'competitors'
   | 'risk'
   | 'history'
+  | 'calendar'
 
 export const ALL_MODULES: PermissionModule[] = [
   'dashboard',
@@ -173,6 +174,7 @@ export const ALL_MODULES: PermissionModule[] = [
   'competitors',
   'risk',
   'history',
+  'calendar',
 ]
 
 export const MODULE_LABELS: Record<PermissionModule, string> = {
@@ -185,6 +187,22 @@ export const MODULE_LABELS: Record<PermissionModule, string> = {
   competitors: 'Competidores',
   risk: 'Risco e Crise',
   history: 'Histórico',
+  calendar: 'Agenda',
+}
+
+export interface CalendarEvent {
+  id: string
+  workspace_id: string | null
+  agency_id: string | null
+  title: string
+  description: string | null
+  start_at: string
+  end_at: string
+  all_day: boolean
+  color: string
+  created_by: string
+  created_at: string
+  updated_at: string
 }
 
 export interface UserPermission {
@@ -212,4 +230,20 @@ export interface Report {
   generated_by: string
   created_at: string
   completed_at: string | null
+}
+
+export type SupportTicketStatus = 'open' | 'in_progress' | 'resolved' | 'closed'
+
+export interface SupportTicket {
+  id: string
+  title: string
+  description: string
+  screenshot_url: string | null
+  page_url: string | null
+  user_email: string | null
+  browser_info: string | null
+  status: SupportTicketStatus
+  created_by: string
+  created_at: string
+  updated_at: string
 }

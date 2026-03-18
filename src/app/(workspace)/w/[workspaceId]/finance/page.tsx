@@ -8,10 +8,10 @@ import {
   Receipt,
   AlertTriangle,
   Gauge,
-  Loader2,
   ArrowRight,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { ModulePageSkeleton } from '@/components/ui/Skeleton'
 import KPICard from '@/components/ui/KPICard'
 import ChartCard from '@/components/ui/ChartCard'
 import CPLTrendChart from '@/components/charts/CPLTrendChart'
@@ -88,11 +88,7 @@ export default function FinancePage() {
   }, [workspaceId])
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
-    )
+    return <ModulePageSkeleton kpis={4} charts={3} />
   }
 
   if (!data) {

@@ -2,10 +2,13 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Loader2, Play, Sparkles, Check, ExternalLink, Zap, MessageSquare, ChevronDown, FolderKanban, Trash2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
 import { SCENARIOS } from '@/lib/simulator/scenarios'
+
+const showSimulator = process.env.NEXT_PUBLIC_SHOW_SIMULATOR === 'true'
 
 interface SimResult {
   success: boolean
@@ -23,6 +26,14 @@ interface WorkspaceOption {
 }
 
 export default function SimulatorPage() {
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!showSimulator) {
+      router.replace('/agency')
+    }
+  }, [router])
+
   const [workspaces, setWorkspaces] = useState<WorkspaceOption[]>([])
   const [workspaceId, setWorkspaceId] = useState<string>('')
   const [loadingWs, setLoadingWs] = useState(true)

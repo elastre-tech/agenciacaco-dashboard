@@ -2,27 +2,34 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { X, LayoutDashboard, FolderKanban, Users, UserCog, Zap, Settings } from 'lucide-react'
+import { useState } from 'react'
+import { X, LayoutDashboard, FolderKanban, Users, UserCog, CalendarDays, Zap, Settings, LifeBuoy } from 'lucide-react'
 import { cn } from '@/lib/utils/format'
+import SupportModal from '@/components/ui/SupportModal'
 
 interface AgencyMobileSidebarProps {
   open: boolean
   onClose: () => void
 }
 
+const showSimulator = process.env.NEXT_PUBLIC_SHOW_SIMULATOR === 'true'
+
 const NAV_ITEMS = [
   { label: 'Dashboard', href: '/agency', icon: LayoutDashboard },
   { label: 'Workspaces', href: '/agency/workspaces', icon: FolderKanban },
   { label: 'Equipe', href: '/agency/team', icon: Users },
   { label: 'Usuários', href: '/agency/users', icon: UserCog },
-  { label: 'Simulador', href: '/agency/simulator', icon: Zap },
+  { label: 'Agenda', href: '/agency/agenda', icon: CalendarDays },
+  ...(showSimulator ? [{ label: 'Simulador' as const, href: '/agency/simulator' as const, icon: Zap }] : []),
+  { label: 'Chamados', href: '/agency/support', icon: LifeBuoy },
   { label: 'Configurações', href: '/agency/settings', icon: Settings },
-] as const
+]
 
 export default function AgencyMobileSidebar({ open, onClose }: AgencyMobileSidebarProps) {
   const pathname = usePathname()
+  const [supportOpen, setSupportOpen] = useState(false)
 
-  if (!open) return null
+  if (!open && !supportOpen) return null
 
   return (
     <>
@@ -71,7 +78,18 @@ export default function AgencyMobileSidebar({ open, onClose }: AgencyMobileSideb
             )
           })}
         </nav>
+
+        <div className="px-2 pb-3">
+          <button
+            onClick={() => { onClose(); setSupportOpen(true) }}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body text-sm transition-colors w-full text-dark-400 hover:bg-dark-600/50 hover:text-white"
+          >
+            <LifeBuoy size={18} />
+            <span>Reportar Problema</span>
+          </button>
+        </div>
       </aside>
+      <SupportModal open={supportOpen} onClose={() => setSupportOpen(false)} />
     </>
   )
 }

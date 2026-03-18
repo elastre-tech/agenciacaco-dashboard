@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
+import { TablePageSkeleton, SkeletonTable } from '@/components/ui/Skeleton'
 import type { UserPermission } from '@/types/database'
 import CreateUserModal from '@/components/agency/CreateUserModal'
 import PermissionsModal from '@/components/agency/PermissionsModal'
@@ -128,11 +129,7 @@ export default function UsersPage() {
   const selectedWs = workspaces.find((w) => w.id === workspaceId)
 
   if (loadingWs) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
-    )
+    return <TablePageSkeleton cols={6} />
   }
 
   if (workspaces.length === 0) {
@@ -186,9 +183,7 @@ export default function UsersPage() {
 
       <div className="bg-surface rounded-card shadow-card border border-border/50 overflow-hidden">
         {loadingUsers ? (
-          <div className="flex items-center justify-center py-16">
-            <Loader2 size={24} className="animate-spin text-dark-300" />
-          </div>
+          <SkeletonTable cols={6} rows={4} />
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">

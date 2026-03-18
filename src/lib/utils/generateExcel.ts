@@ -1,5 +1,6 @@
 import * as XLSX from 'xlsx'
 import { createClient } from '@/lib/supabase/client'
+import { formatDateBR } from '@/lib/utils/format'
 
 const MODULE_LABELS: Record<string, string> = {
   'painel-geral': 'Painel Geral',
@@ -47,7 +48,7 @@ async function fetchBudgets(workspaceId: string) {
 
 function createMetricsSheet(wb: XLSX.WorkBook, metrics: Record<string, unknown>[]) {
   const rows = metrics.map((m) => ({
-    Data: m.date,
+    Data: formatDateBR(String(m.date ?? '')),
     'Alcance Total': m.total_reach,
     Impressões: m.impressions,
     Cliques: m.clicks,
@@ -73,7 +74,7 @@ function createLeadsSheet(wb: XLSX.WorkBook, leads: Record<string, unknown>[]) {
     Bairro: l.neighborhood ?? '-',
     Notas: l.notes ?? '-',
     'Convertido em': l.converted_at ?? '-',
-    'Criado em': String(l.created_at ?? '').slice(0, 10),
+    'Criado em': formatDateBR(String(l.created_at ?? '')),
   }))
 
   const ws = XLSX.utils.json_to_sheet(rows.length ? rows : [{ Mensagem: 'Nenhum dado encontrado' }])
@@ -86,7 +87,7 @@ function createBudgetsSheet(wb: XLSX.WorkBook, budgets: Record<string, unknown>[
     Canal: b.channel,
     Alocado: b.allocated,
     Gasto: b.spent,
-    Mês: b.month,
+    Mês: formatDateBR(String(b.month ?? '')),
   }))
 
   const ws = XLSX.utils.json_to_sheet(rows.length ? rows : [{ Mensagem: 'Nenhum dado encontrado' }])

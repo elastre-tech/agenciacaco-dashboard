@@ -2,16 +2,20 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { useState } from 'react'
 import {
   LayoutDashboard,
   FolderKanban,
   Users,
   Settings,
   UserCog,
+  CalendarDays,
   Zap,
   ChevronLeft,
   ChevronRight,
+  LifeBuoy,
 } from 'lucide-react'
+import SupportModal from '@/components/ui/SupportModal'
 import { cn } from '@/lib/utils/format'
 
 interface AgencySidebarProps {
@@ -19,19 +23,25 @@ interface AgencySidebarProps {
   onToggle: () => void
 }
 
+const showSimulator = process.env.NEXT_PUBLIC_SHOW_SIMULATOR === 'true'
+
 const NAV_ITEMS = [
   { label: 'Dashboard', href: '/agency', icon: LayoutDashboard },
   { label: 'Workspaces', href: '/agency/workspaces', icon: FolderKanban },
   { label: 'Equipe', href: '/agency/team', icon: Users },
   { label: 'Usuários', href: '/agency/users', icon: UserCog },
-  { label: 'Simulador', href: '/agency/simulator', icon: Zap },
+  { label: 'Agenda', href: '/agency/agenda', icon: CalendarDays },
+  ...(showSimulator ? [{ label: 'Simulador' as const, href: '/agency/simulator' as const, icon: Zap }] : []),
+  { label: 'Chamados', href: '/agency/support', icon: LifeBuoy },
   { label: 'Configurações', href: '/agency/settings', icon: Settings },
-] as const
+]
 
 export default function AgencySidebar({ collapsed, onToggle }: AgencySidebarProps) {
   const pathname = usePathname()
+  const [supportOpen, setSupportOpen] = useState(false)
 
   return (
+    <>
     <aside
       className={cn(
         'fixed left-0 top-0 h-screen bg-dark-700 flex flex-col z-40 transition-[width] duration-200 ease-out',
@@ -81,6 +91,20 @@ export default function AgencySidebar({ collapsed, onToggle }: AgencySidebarProp
         })}
       </nav>
 
+      <div className="px-2 pb-2">
+        <button
+          onClick={() => setSupportOpen(true)}
+          title={collapsed ? 'Reportar Problema' : undefined}
+          className={cn(
+            'flex items-center gap-3 px-3 py-2.5 rounded-lg font-body text-sm transition-colors w-full text-dark-400 hover:bg-dark-600/50 hover:text-white',
+            collapsed && 'justify-center px-0'
+          )}
+        >
+          <LifeBuoy size={18} className="flex-shrink-0" />
+          {!collapsed && <span>Reportar Problema</span>}
+        </button>
+      </div>
+
       <button
         onClick={onToggle}
         className="flex items-center justify-center h-12 border-t border-dark-600 text-dark-300 hover:text-white transition-colors"
@@ -88,5 +112,7 @@ export default function AgencySidebar({ collapsed, onToggle }: AgencySidebarProp
         {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
       </button>
     </aside>
+    <SupportModal open={supportOpen} onClose={() => setSupportOpen(false)} />
+    </>
   )
 }

@@ -5,10 +5,10 @@ import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import {
   Ear,
+  MessageSquare,
   ThumbsUp,
   ThumbsDown,
   Sparkles,
-  Loader2,
   ArrowRight,
   Twitter,
   Instagram,
@@ -20,6 +20,8 @@ import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
+import { ModulePageSkeleton } from '@/components/ui/Skeleton'
+import EmptyState from '@/components/ui/EmptyState'
 import KPICard from '@/components/ui/KPICard'
 import ChartCard from '@/components/ui/ChartCard'
 import SentimentTrendChart from '@/components/charts/SentimentTrendChart'
@@ -150,10 +152,17 @@ export default function ListeningPage() {
   }, [workspaceId, range])
 
   if (loading) {
+    return <ModulePageSkeleton kpis={4} charts={2} />
+  }
+
+  if (!mentions.length && !emergingTerms.length) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
+      <EmptyState
+        icon={MessageSquare}
+        title="Nenhuma menção encontrada"
+        description="Adicione termos de monitoramento para começar a rastrear menções."
+        action={{ label: 'Gerenciar Termos', href: `/w/${workspaceId}/listening/terms` }}
+      />
     )
   }
 

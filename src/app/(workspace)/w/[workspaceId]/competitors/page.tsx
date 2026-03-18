@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import { Loader2, Megaphone, Globe, MessageCircle, ThumbsUp } from 'lucide-react'
+import { Megaphone, Globe, MessageCircle, ThumbsUp } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
+import { ModulePageSkeleton } from '@/components/ui/Skeleton'
 import KPICard from '@/components/ui/KPICard'
 import ChartCard from '@/components/ui/ChartCard'
 import ShareOfVoiceChart from '@/components/charts/ShareOfVoiceChart'
@@ -151,11 +152,7 @@ export default function CompetitorsPage() {
   }, [workspaceId])
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
-    )
+    return <ModulePageSkeleton kpis={4} charts={2} />
   }
 
   if (!sov.length && !dominance.length) {

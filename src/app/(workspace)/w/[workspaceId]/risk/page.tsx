@@ -9,11 +9,11 @@ import {
   ThermometerSun,
   MessageSquare,
   Bell,
-  Loader2,
 } from 'lucide-react'
 import { formatDistanceToNow, format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { createClient } from '@/lib/supabase/client'
+import { ModulePageSkeleton } from '@/components/ui/Skeleton'
 import KPICard from '@/components/ui/KPICard'
 import ChartCard from '@/components/ui/ChartCard'
 import AlertBadge from '@/components/ui/AlertBadge'
@@ -98,11 +98,7 @@ export default function RiskRadarPage() {
   }, [workspaceId])
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
-    )
+    return <ModulePageSkeleton kpis={4} charts={2} />
   }
 
   const reputation = computeReputationScore(sentiments)

@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
 import {
-  Loader2,
   Search,
   Plus,
   MoreHorizontal,
@@ -14,7 +13,10 @@ import {
   Play,
   Archive,
   ArrowUpDown,
+  FolderKanban,
 } from 'lucide-react'
+import { TablePageSkeleton } from '@/components/ui/Skeleton'
+import EmptyState from '@/components/ui/EmptyState'
 
 interface Workspace {
   id: string
@@ -135,11 +137,7 @@ export default function WorkspacesPage() {
   }
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
-    )
+    return <TablePageSkeleton cols={7} />
   }
 
   return (
@@ -184,9 +182,12 @@ export default function WorkspacesPage() {
 
       <div className="bg-surface rounded-card shadow-card border border-border/50 overflow-hidden">
         {filtered.length === 0 ? (
-          <p className="font-body text-sm text-dark-300 text-center py-16">
-            Nenhum workspace encontrado.
-          </p>
+          <EmptyState
+            icon={FolderKanban}
+            title="Nenhum workspace encontrado"
+            description={search ? 'Tente ajustar sua busca.' : 'Crie um workspace para começar a acompanhar campanhas.'}
+            action={!search ? { label: 'Novo Workspace', href: '/agency/workspaces/new' } : undefined}
+          />
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[800px]">

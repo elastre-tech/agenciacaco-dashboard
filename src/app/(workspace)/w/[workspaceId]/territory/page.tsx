@@ -14,6 +14,7 @@ import {
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
+import { ModulePageSkeleton } from '@/components/ui/Skeleton'
 import KPICard from '@/components/ui/KPICard'
 import ChartCard from '@/components/ui/ChartCard'
 import DensityGrid from '@/components/charts/DensityGrid'
@@ -139,11 +140,7 @@ export default function TerritoryPage() {
   )
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
-    )
+    return <ModulePageSkeleton kpis={4} charts={2} />
   }
 
   return (

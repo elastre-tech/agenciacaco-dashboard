@@ -8,6 +8,7 @@ import ChartCard from '@/components/ui/ChartCard'
 import WorkspaceCard from '@/components/agency/WorkspaceCard'
 import CplComparisonChart from '@/components/agency/CplComparisonChart'
 import GlobalAlertsFeed from '@/components/agency/GlobalAlertsFeed'
+import { DashboardSkeleton } from '@/components/ui/Skeleton'
 import type { Workspace, MetricsDaily, IntelligenceAlert } from '@/types/database'
 
 interface WorkspaceData {
@@ -128,11 +129,7 @@ export default function AgencyDashboardPage() {
   }
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-24">
-        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-      </div>
-    )
+    return <DashboardSkeleton kpis={4} charts={2} />
   }
 
   if (workspacesData.length === 0) {

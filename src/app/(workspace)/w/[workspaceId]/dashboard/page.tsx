@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import { Eye, DollarSign, Users, ShieldAlert, Loader2 } from 'lucide-react'
+import { Eye, DollarSign, Users, ShieldAlert } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { DashboardSkeleton } from '@/components/ui/Skeleton'
+import EmptyState from '@/components/ui/EmptyState'
 import KPICard from '@/components/ui/KPICard'
 import ChartCard from '@/components/ui/ChartCard'
 import CPLTrendChart from '@/components/charts/CPLTrendChart'
@@ -99,11 +101,7 @@ export default function WorkspaceDashboardPage() {
   }, [workspaceId])
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
-    )
+    return <DashboardSkeleton kpis={4} charts={3} />
   }
 
   if (!data) {
@@ -111,6 +109,16 @@ export default function WorkspaceDashboardPage() {
       <p className="font-body text-sm text-dark-300 text-center py-20">
         Erro ao carregar dados.
       </p>
+    )
+  }
+
+  if (data.metrics.length === 0 && data.alerts.length === 0 && data.budgets.length === 0) {
+    return (
+      <EmptyState
+        icon={Eye}
+        title="Nenhum dado disponível"
+        description="Os dados do painel aparecerão aqui quando a campanha começar a gerar métricas."
+      />
     )
   }
 

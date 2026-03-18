@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'next/navigation'
 import {
+  Hash,
   Plus,
   Trash2,
   Upload,
@@ -15,6 +16,8 @@ import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
+import { TablePageSkeleton } from '@/components/ui/Skeleton'
+import EmptyState from '@/components/ui/EmptyState'
 
 interface ListeningTerm {
   id: string
@@ -153,10 +156,16 @@ export default function ListeningTermsPage() {
   }
 
   if (loading) {
+    return <TablePageSkeleton cols={4} />
+  }
+
+  if (!terms.length) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
+      <EmptyState
+        icon={Hash}
+        title="Nenhum termo cadastrado"
+        description="Adicione termos para monitorar menções nas redes sociais."
+      />
     )
   }
 

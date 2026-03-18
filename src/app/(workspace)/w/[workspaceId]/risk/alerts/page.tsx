@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import {
   ArrowLeft,
+  Bell,
   Plus,
   Trash2,
   Loader2,
@@ -14,6 +15,8 @@ import {
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
+import { TablePageSkeleton } from '@/components/ui/Skeleton'
+import EmptyState from '@/components/ui/EmptyState'
 
 interface CrisisAlertConfig {
   id: string
@@ -113,10 +116,16 @@ export default function AlertsConfigPage() {
   }
 
   if (loading) {
+    return <TablePageSkeleton cols={5} />
+  }
+
+  if (!configs.length) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
+      <EmptyState
+        icon={Bell}
+        title="Nenhum alerta configurado"
+        description="Configure alertas para ser notificado sobre eventos de crise."
+      />
     )
   }
 

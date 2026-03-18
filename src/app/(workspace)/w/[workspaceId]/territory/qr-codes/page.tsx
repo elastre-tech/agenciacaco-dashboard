@@ -12,6 +12,8 @@ import {
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
+import { TablePageSkeleton } from '@/components/ui/Skeleton'
+import EmptyState from '@/components/ui/EmptyState'
 import KPICard from '@/components/ui/KPICard'
 import ChartCard from '@/components/ui/ChartCard'
 import type { QRCode } from '@/types/database'
@@ -71,10 +73,16 @@ export default function QrCodesPage() {
   const totalScans = qrCodes.reduce((sum, qr) => sum + qr.scans_count, 0)
 
   if (loading) {
+    return <TablePageSkeleton kpis={2} cols={5} />
+  }
+
+  if (!loading && qrCodes.length === 0) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
+      <EmptyState
+        icon={QrCode}
+        title="Nenhum QR Code criado ainda"
+        description="Crie QR Codes para acompanhar interações territoriais."
+      />
     )
   }
 

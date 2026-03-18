@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { useState } from 'react'
 import { X, ArrowLeft } from 'lucide-react'
 import {
   LayoutDashboard,
@@ -13,8 +14,11 @@ import {
   Swords,
   ShieldAlert,
   History,
+  CalendarDays,
+  LifeBuoy,
 } from 'lucide-react'
 import { cn } from '@/lib/utils/format'
+import SupportModal from '@/components/ui/SupportModal'
 import type { PermissionModule } from '@/types/database'
 
 interface MobileSidebarProps {
@@ -36,13 +40,15 @@ const NAV_ITEMS = [
   { label: 'Competidores', href: '/competitors', icon: Swords, module: 'competitors' as PermissionModule },
   { label: 'Risco e Crise', href: '/risk', icon: ShieldAlert, module: 'risk' as PermissionModule },
   { label: 'Histórico', href: '/history', icon: History, module: 'history' as PermissionModule },
+  { label: 'Agenda', href: '/agenda', icon: CalendarDays, module: 'calendar' as PermissionModule },
 ] as const
 
 export default function MobileSidebar({ workspaceId, workspaceName, open, onClose, isAgencyMember, canView }: MobileSidebarProps) {
   const pathname = usePathname()
   const basePath = `/w/${workspaceId}`
+  const [supportOpen, setSupportOpen] = useState(false)
 
-  if (!open) return null
+  if (!open && !supportOpen) return null
 
   return (
     <>
@@ -112,7 +118,18 @@ export default function MobileSidebar({ workspaceId, workspaceName, open, onClos
             )
           })}
         </nav>
+
+        <div className="px-2 pb-3">
+          <button
+            onClick={() => { onClose(); setSupportOpen(true) }}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body text-sm transition-colors w-full text-dark-400 hover:bg-dark-600/50 hover:text-white"
+          >
+            <LifeBuoy size={18} />
+            <span>Reportar Problema</span>
+          </button>
+        </div>
       </aside>
+      <SupportModal open={supportOpen} onClose={() => setSupportOpen(false)} />
     </>
   )
 }

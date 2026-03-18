@@ -1,6 +1,7 @@
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import { createClient } from '@/lib/supabase/client'
+import { formatDateBR } from '@/lib/utils/format'
 
 interface AutoTableDoc extends jsPDF {
   autoTable: (options: Record<string, unknown>) => void
@@ -35,7 +36,7 @@ function addBrandedHeader(doc: jsPDF, title: string, dateRange: { start: string;
   doc.setFontSize(10)
   doc.text(title, 14, 28)
 
-  const rangeText = `${dateRange.start} — ${dateRange.end}`
+  const rangeText = `${formatDateBR(dateRange.start)} — ${formatDateBR(dateRange.end)}`
   const pageWidth = doc.internal.pageSize.getWidth()
   doc.text(rangeText, pageWidth - 14 - doc.getTextWidth(rangeText), 28)
 }
@@ -95,7 +96,7 @@ function addMetricsTable(doc: jsPDF, metrics: Record<string, unknown>[], startY:
   if (!metrics.length) return startY + 6
 
   const rows = metrics.map((m) => [
-    String(m.date ?? ''),
+    formatDateBR(String(m.date ?? '')),
     Number(m.total_reach ?? 0).toLocaleString('pt-BR'),
     Number(m.impressions ?? 0).toLocaleString('pt-BR'),
     Number(m.clicks ?? 0).toLocaleString('pt-BR'),
@@ -123,7 +124,7 @@ function addLeadsTable(doc: jsPDF, leads: Record<string, unknown>[], startY: num
     String(l.temperature ?? ''),
     String(l.source ?? ''),
     String(l.neighborhood ?? '-'),
-    String(l.created_at ?? '').slice(0, 10),
+    formatDateBR(String(l.created_at ?? '')),
   ])
 
   ;(doc as AutoTableDoc).autoTable({

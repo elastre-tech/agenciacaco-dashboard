@@ -2,9 +2,11 @@
 
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import { useParams } from 'next/navigation'
-import { Search, Download, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
+import { Search, Download, ChevronLeft, ChevronRight, Users } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
+import { TablePageSkeleton } from '@/components/ui/Skeleton'
+import EmptyState from '@/components/ui/EmptyState'
 import type { Lead, LeadTemperature } from '@/types/database'
 import LeadsTable, { type SortField } from './LeadsTable'
 
@@ -176,10 +178,16 @@ export default function LeadsPage() {
   }
 
   if (loading) {
+    return <TablePageSkeleton cols={6} />
+  }
+
+  if (!loading && allLeads.length === 0) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
+      <EmptyState
+        icon={Users}
+        title="Nenhum lead encontrado"
+        description="Os leads aparecerão aqui quando forem capturados pela campanha."
+      />
     )
   }
 

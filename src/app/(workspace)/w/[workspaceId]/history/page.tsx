@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import { useParams } from 'next/navigation'
-import { Trophy, Vote, MapPin, BarChart3, Map, Loader2, ArrowUpDown } from 'lucide-react'
+import { Trophy, Vote, MapPin, BarChart3, Map, ArrowUpDown, Database, Loader2, RefreshCw } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
 import ChartCard from '@/components/ui/ChartCard'
+import { ModulePageSkeleton } from '@/components/ui/Skeleton'
 import KPICard from '@/components/ui/KPICard'
 import ElectionComparisonChart from '@/components/charts/ElectionComparisonChart'
 import type { ElectionData } from '@/components/charts/ElectionComparisonChart'
@@ -253,28 +254,65 @@ export default function HistoryPage() {
   const workspaceId = params.workspaceId as string
   const [data, setData] = useState<ElectionHistory[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadingTSE, setLoadingTSE] = useState(false)
+  const [tseResult, setTseResult] = useState<{ success: boolean; message: string } | null>(null)
+
+  const fetchHistory = useCallback(async () => {
+    const supabase = createClient()
+    try {
+      const { data: rows } = await supabase
+        .from('election_history')
+        .select('*')
+        .eq('workspace_id', workspaceId)
+        .order('election_year', { ascending: false })
+
+      setData(rows ?? [])
+    } catch {
+      console.error('Failed to fetch election history')
+    } finally {
+      setLoading(false)
+    }
+  }, [workspaceId])
 
   useEffect(() => {
-    const supabase = createClient()
-
-    async function fetchHistory() {
-      try {
-        const { data: rows } = await supabase
-          .from('election_history')
-          .select('*')
-          .eq('workspace_id', workspaceId)
-          .order('election_year', { ascending: false })
-
-        setData(rows ?? [])
-      } catch {
-        console.error('Failed to fetch election history')
-      } finally {
-        setLoading(false)
-      }
-    }
-
     fetchHistory()
-  }, [workspaceId])
+  }, [fetchHistory])
+
+  async function handleLoadTSE() {
+    setLoadingTSE(true)
+    setTseResult(null)
+
+    try {
+      const res = await fetch('/api/tse/load', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ workspaceId }),
+      })
+
+      const result = await res.json()
+
+      if (result.success) {
+        setTseResult({
+          success: true,
+          message: `${result.total_rows} registros carregados para ${result.city} (${result.years_loaded.join(', ')}). Dados carregados conforme configuração do workspace.`,
+        })
+        setLoading(true)
+        await fetchHistory()
+      } else {
+        const cityList = result.available_cities
+          ? `\nCidades disponíveis: ${result.available_cities.join(', ')}`
+          : ''
+        setTseResult({
+          success: false,
+          message: (result.errors?.join('. ') || result.error || 'Dados não encontrados para esta cidade.') + cityList,
+        })
+      }
+    } catch {
+      setTseResult({ success: false, message: 'Erro de conexão ao carregar dados do TSE.' })
+    } finally {
+      setLoadingTSE(false)
+    }
+  }
 
   const summaries = useMemo(() => buildSummaries(data), [data])
   const chartData = useMemo(() => buildChartData(data), [data])
@@ -295,31 +333,92 @@ export default function HistoryPage() {
   )
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
-    )
+    return <ModulePageSkeleton kpis={4} charts={2} />
   }
 
   if (!data.length) {
     return (
-      <p className="font-body text-sm text-dark-300 text-center py-20">
-        Nenhum dado de histórico eleitoral encontrado.
-      </p>
+      <div className="space-y-6">
+        <div>
+          <h2 className="font-heading text-xl font-bold text-dark-700 mb-1">
+            Histórico Eleitoral
+          </h2>
+          <p className="font-body text-sm text-dark-300">
+            Desempenho em eleições anteriores com detalhamento por zona e seção.
+          </p>
+        </div>
+        <div className="flex flex-col items-center justify-center py-16 px-4">
+          <div className="w-14 h-14 rounded-2xl bg-dark-50 flex items-center justify-center mb-4">
+            <Database size={28} className="text-dark-200" />
+          </div>
+          <h3 className="font-heading font-semibold text-dark-700 text-base mb-1.5">
+            Nenhum dado eleitoral disponível
+          </h3>
+          <p className="font-body text-sm text-dark-300 text-center max-w-sm mb-5">
+            Carregue dados reais do Tribunal Superior Eleitoral (TSE) para visualizar o histórico de eleições desta cidade.
+          </p>
+          <button
+            onClick={handleLoadTSE}
+            disabled={loadingTSE}
+            className="inline-flex items-center gap-2 bg-primary text-dark font-heading font-semibold rounded-lg px-5 py-2.5 hover:bg-primary-500 transition-colors text-sm disabled:opacity-50"
+          >
+            {loadingTSE ? (
+              <><Loader2 size={16} className="animate-spin" /> Carregando...</>
+            ) : (
+              <><Database size={16} /> Carregar Dados do TSE</>
+            )}
+          </button>
+          {tseResult && (
+            <p className={cn(
+              'font-body text-sm mt-4 text-center max-w-md',
+              tseResult.success ? 'text-success' : 'text-danger'
+            )}>
+              {tseResult.message}
+            </p>
+          )}
+        </div>
+      </div>
     )
   }
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="font-heading text-xl font-bold text-dark-700 mb-1">
-          Histórico Eleitoral
-        </h2>
-        <p className="font-body text-sm text-dark-300">
-          Desempenho em eleições anteriores com detalhamento por zona e seção.
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h2 className="font-heading text-xl font-bold text-dark-700 mb-1">
+            Histórico Eleitoral
+          </h2>
+          <p className="font-body text-sm text-dark-300">
+            Desempenho em eleições anteriores com detalhamento por zona e seção.
+          </p>
+        </div>
+        <button
+          onClick={handleLoadTSE}
+          disabled={loadingTSE}
+          className="inline-flex items-center gap-2 border border-dark-200 text-dark-500 hover:bg-dark-50 rounded-lg px-4 py-2 font-body text-sm transition-colors disabled:opacity-50"
+          title="Atualizar dados do TSE"
+        >
+          {loadingTSE ? (
+            <Loader2 size={14} className="animate-spin" />
+          ) : (
+            <RefreshCw size={14} />
+          )}
+          Atualizar TSE
+        </button>
       </div>
+
+      {tseResult && (
+        <div className={cn(
+          'px-4 py-3 rounded-lg text-sm font-body',
+          tseResult.success ? 'bg-success/10 text-success border border-success/20' : 'bg-danger/10 text-danger border border-danger/20'
+        )}>
+          {tseResult.message}
+        </div>
+      )}
+
+      <p className="font-body text-xs text-dark-300">
+        Dados do TSE carregados conforme cidade/estado configurados no workspace.
+      </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard

@@ -14,6 +14,7 @@ import {
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/format'
 import KPICard from '@/components/ui/KPICard'
+import { TablePageSkeleton } from '@/components/ui/Skeleton'
 
 interface AgencyMember {
   id: string
@@ -185,11 +186,7 @@ export default function AgencyTeamPage() {
   }
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 size={24} className="animate-spin text-dark-300" />
-      </div>
-    )
+    return <TablePageSkeleton kpis={4} cols={6} />
   }
 
   return (

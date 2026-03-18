@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { useState } from 'react'
 import {
   LayoutDashboard,
   Map,
@@ -12,11 +13,14 @@ import {
   Swords,
   ShieldAlert,
   History,
+  CalendarDays,
   ChevronLeft,
   ChevronRight,
   ArrowLeft,
+  LifeBuoy,
 } from 'lucide-react'
 import { cn } from '@/lib/utils/format'
+import SupportModal from '@/components/ui/SupportModal'
 import type { PermissionModule } from '@/types/database'
 
 interface SidebarProps {
@@ -38,13 +42,16 @@ const NAV_ITEMS = [
   { label: 'Competidores', href: '/competitors', icon: Swords, module: 'competitors' as PermissionModule },
   { label: 'Risco e Crise', href: '/risk', icon: ShieldAlert, module: 'risk' as PermissionModule },
   { label: 'Histórico', href: '/history', icon: History, module: 'history' as PermissionModule },
+  { label: 'Agenda', href: '/agenda', icon: CalendarDays, module: 'calendar' as PermissionModule },
 ] as const
 
 export default function Sidebar({ workspaceId, workspaceName, collapsed, onToggle, isAgencyMember, canView }: SidebarProps) {
   const pathname = usePathname()
   const basePath = `/w/${workspaceId}`
+  const [supportOpen, setSupportOpen] = useState(false)
 
   return (
+    <>
     <aside
       className={cn(
         'fixed left-0 top-0 h-screen bg-dark-700 flex flex-col z-40 transition-[width] duration-200 ease-out',
@@ -120,6 +127,20 @@ export default function Sidebar({ workspaceId, workspaceName, collapsed, onToggl
         })}
       </nav>
 
+      <div className="px-2 pb-2">
+        <button
+          onClick={() => setSupportOpen(true)}
+          title={collapsed ? 'Reportar Problema' : undefined}
+          className={cn(
+            'flex items-center gap-3 px-3 py-2.5 rounded-lg font-body text-sm transition-colors w-full text-dark-400 hover:bg-dark-600/50 hover:text-white',
+            collapsed && 'justify-center px-0'
+          )}
+        >
+          <LifeBuoy size={18} className="flex-shrink-0" />
+          {!collapsed && <span>Reportar Problema</span>}
+        </button>
+      </div>
+
       <button
         onClick={onToggle}
         className="flex items-center justify-center h-12 border-t border-dark-600 text-dark-300 hover:text-white transition-colors"
@@ -127,5 +148,7 @@ export default function Sidebar({ workspaceId, workspaceName, collapsed, onToggl
         {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
       </button>
     </aside>
+    <SupportModal open={supportOpen} onClose={() => setSupportOpen(false)} />
+    </>
   )
 }
